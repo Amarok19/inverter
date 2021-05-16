@@ -1,11 +1,8 @@
-import os
-from datetime import datetime as dt
 import tkinter as tk
 import tkinter.filedialog as filedialog
 # from PIL import ImageTk, Image
 import xml.etree.ElementTree as ET
 import parsers
-from Invoice import Invoice
 
 
 def save_epp(metadata, invoice_list):

@@ -1,7 +1,5 @@
-from datetime import datetime as dt
 from Invoice import Invoice
-import xml.etree.ElementTree as ET
-from utils import date_parser, datetime_parser, date_to_str, datetime_to_str, quote
+from utils import date_parser, datetime_parser, date_to_str, quote
 
 
 def parser_0(document):
