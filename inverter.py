@@ -46,9 +46,9 @@ def open_xml():
 
 def xml_parser_router(xml_type):
     if xml_type == 0:
-        return parsers.parser_1
+        return parsers.parser_0
     elif xml_type == 1:
-        return parsers.parser_2
+        return parsers.parser_1
     else:
         raise RuntimeError("Unknown xml_type passed to xml_parser_router.")
 

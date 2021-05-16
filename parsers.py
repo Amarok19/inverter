@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 from utils import date_parser, datetime_parser, date_to_str, datetime_to_str, quote
 
 
-def parser_1(document):
+def parser_0(document):
     invoice_list = list()
     metadata = dict()
     metadata["communication_date"] = date_to_str(date_parser(document.attrib["Date"]))
@@ -51,7 +51,7 @@ def parser_1(document):
     return metadata, invoice_list
 
 
-def parser_2(document):
+def parser_1(document):
     invoice_list = []
     metadata = dict()
     metadata["communication_date"] = date_to_str(datetime_parser(document.attrib["date"]))
