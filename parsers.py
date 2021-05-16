@@ -9,7 +9,7 @@ def parser_0(document):
     metadata = dict()
     metadata["communication_date"] = date_to_str(date_parser(document.attrib["Date"]))
     for item in document:
-        if not item.tag == "Invoice":
+        if not item.tag.endswith("}Invoice"):
             continue
         invoice = Invoice()
         invoice.header["suppliers_document_number"] = quote(item.find("InvoiceReferences").find("SuppliersInvoiceNumber").text)
