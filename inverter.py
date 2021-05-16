@@ -64,13 +64,15 @@ def operate():
 window = tk.Tk()
 window.title('Inverter - konwerter faktur')
 window.resizable(False, False)
-window.geometry('250x250')
+window.geometry('280x250')
 button = tk.Button(window, text="Kliknij tutaj, aby rozpocząć", command=operate)
 button.pack(expand=True)
+copyright_notice = tk.Label(text="Copyright © 2021 Krzysztof Setlak IT Consulting")
+copyright_notice.pack()
 # canv = tk.Canvas(window, bg="white", bd=10, height=250, width=250)
-# canv.pack()
 # img = ImageTk.PhotoImage(Image.open("assets/dnd_banner.png"))
 # canv.create_image(10, 10, image=img, anchor='nw')
+# canv.pack()
 
 
 window.mainloop()
