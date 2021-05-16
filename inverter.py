@@ -37,10 +37,11 @@ def get_xml_type(xml_file_root):
 def open_xml():
     xml_file = filedialog.askopenfile(mode="r")
     # tree = ET.parse('example_data/jotim_04_2021.xml')
-    tree = ET.parse(xml_file.name)
-    root = tree.getroot()
-    xml_type = get_xml_type(root)
-    return root, xml_type
+    if xml_file:
+        tree = ET.parse(xml_file.name)
+        root = tree.getroot()
+        xml_type = get_xml_type(root)
+        return root, xml_type
 
 
 def xml_parser_router(xml_type):
@@ -53,11 +54,12 @@ def xml_parser_router(xml_type):
 
 
 def operate():
-    document, xml_type = open_xml()
-    xml_parser_function = xml_parser_router(xml_type)
-    metadata, invoice_list = xml_parser_function(document)
-    save_epp(metadata, invoice_list)
-
+    to_unpack = open_xml()
+    if to_unpack:
+        document, xml_type = to_unpack
+        xml_parser_function = xml_parser_router(xml_type)
+        metadata, invoice_list = xml_parser_function(document)
+        save_epp(metadata, invoice_list)
 
 window = tk.Tk()
 window.title('Inverter - konwerter faktur')
