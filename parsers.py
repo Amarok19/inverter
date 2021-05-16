@@ -41,7 +41,7 @@ def parser_0(document):
                     # "tax_rate_symbol": entry.find("LineTax").find("TaxRate").attrib["Code"],  # Zastąpione rozwiązaniem wziętym z przykładu
                     "tax_rate_symbol": quote(entry.find("LineTax").find("TaxRate").text),
                     "tax_rate": float(entry.find("LineTax").find("TaxRate").text),
-                    "net_value": float(entry.find("Price").find("UnitPrice").text.replace(",", ".")) * float(entry.find("Quantity").find("Amount").text.replace(",", ".")),
+                    "net_value": round(float(entry.find("Price").find("UnitPrice").text.replace(",", ".")) * float(entry.find("Quantity").find("Amount").text.replace(",", ".")), 2),
                     "vat_value": float(entry.find("LineTax").find("TaxValue").text.replace(",", ".")),
                     "gross_value": float(entry.find("LineTotal").text.replace(",", "."))
                 }
