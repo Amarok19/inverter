@@ -2,7 +2,7 @@ class Invoice:
     """Class modelled after EDI++ file structure."""
     def __init__(self):
         self.header = {
-            "document_type": "FZ",
+            "document_type": "\"FZ\"",
             "document_status": 1,
             "tax_registeration_status_code": 0,
             "document_number": 0,
@@ -28,7 +28,7 @@ class Invoice:
             "receipt_date": "",
             "number_of_entries": 0,
             "net_prices": True,
-            "active_price": "netto",
+            "active_price": "\"netto\"",
             "net_value": 0.0,
             "vat_value": 0.0,
             "gross_value": 0.0,
