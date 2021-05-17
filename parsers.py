@@ -55,6 +55,7 @@ def parser_1(document):
     metadata["communication_date"] = date_to_str(datetime_parser(document.attrib["date"]))
     for item in document:
         invoice = Invoice()
+        invoice.header["document_type"] = quote("FS")
         invoice.header["suppliers_document_number"] = quote(item.find("inv_number_string").text)
         invoice.header["document_number_full"] = quote(item.find("inv_number_string").text)
         invoice.header["net_value"] = item.find("inv_price_net").text

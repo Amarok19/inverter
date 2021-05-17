@@ -6,7 +6,8 @@ import parsers
 
 
 def save_epp(metadata, invoice_list):
-    f = filedialog.asksaveasfile(mode='w', defaultextension=".epp")
+    fname = filedialog.asksaveasfilename(defaultextension=".epp")
+    f = open(fname, 'w', encoding="windows-1250")
     if f is None:  # None is returned if user cancels.
         return
     f.write("[INFO]")
