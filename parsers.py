@@ -19,9 +19,11 @@ def parser_0(document):
         invoice.header["order_id"] = quote(item.find("InvoiceReferences").find("BuyersOrderNumber").text) if item.find("InvoiceReferences").find("BuyersOrderNumber") else ""  # BuyersOrderNumber is sometimes absent in this XML schema
         invoice.header["currency"] = quote(item.find("InvoiceHead").find("InvoiceCurrency").find("Currency").attrib["Code"])
         # invoice.header[""] = quote(item.find("Supplier").find("SupplierReference").find("TaxNumber").text)  # Brak NIP sprzedawcy w EDI++
-        invoice.header["contractor_id"] = quote(item.find("Buyer").find("BuyerReferences").find("SuppliersCodeForBuyer").text)
+        # invoice.header["contractor_id"] = quote(item.find("Buyer").find("BuyerReferences").find("SuppliersCodeForBuyer").text)  # Prawidłowym źródłem jest Buyer.Party
+        invoice.header["contractor_id"] = quote(item.find("Buyer").find("Party").text.replace(",", "")[:20])
+        invoice.header["contractor_name_short"] = quote(item.find("Buyer").find("Party").text.replace(",", "")[:40])
+        invoice.header["contractor_name_full"] = quote(item.find("Buyer").find("Party").text.replace(",", ""))
         invoice.header["contractor_tax_id"] = quote(item.find("Buyer").find("BuyerReferences").find("TaxNumber").text)
-        invoice.header["contractor_name_full"] = quote(item.find("Buyer").find("Party").text)
         invoice.header["contractor_address"] = quote(item.find("Buyer").find("Address").find("Street").text)
         invoice.header["contractor_city"] = quote(item.find("Buyer").find("Address").find("City").text)
         invoice.header["contractor_zip_code"] = quote(item.find("Buyer").find("Address").find("PostCode").text)
@@ -67,9 +69,10 @@ def parser_1(document):
         invoice.header["amount_left_to_pay"] = item.find("inv_price").text
         invoice.header["issue_date"] = date_to_str(date_parser(item.find("inv_date").text))
         invoice.header["sale_date"] = date_to_str(date_parser(item.find("inv_sell_date").text))
-        invoice.header["contractor_name_short"] = quote(item.find("inv_bill_company").text)
-        invoice.header["contractor_name_full"] = quote(item.find("inv_bill_company").text)
-        invoice.header["contractor_tax_id"] = quote(item.find("inv_bill_vat").text) if item.find("inv_bill_vat").text else None
+        invoice.header["contractor_name_full"] = quote(item.find("inv_bill_company").text.replace(",", ""))
+        invoice.header["contractor_name_short"] = quote(item.find("inv_bill_company").text.replace(",", "")[:40])
+        invoice.header["contractor_id"] = quote(item.find("inv_bill_company").text.replace(",", "")[:20])
+        invoice.header["contractor_tax_id"] = quote(item.find("inv_bill_vat").text) if item.find("inv_bill_vat").text else ''
         invoice.header["contractor_city"] = quote(item.find("inv_bill_city").text)
         invoice.header["contractor_country"] = quote(item.find("inv_bill_country").text)
         invoice.header["contractor_address"] = quote(item.find("inv_bill_street").text)
