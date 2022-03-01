@@ -3,6 +3,9 @@ from utils import date_parser, datetime_parser, date_to_str, quote
 
 
 def parser_0(document):
+    """
+    Parser for invoice collections with filenames constructed according to this format: {company_name}_MM_YYYY
+    """
     invoice_list = list()
     metadata = dict()
     metadata["communication_date"] = date_to_str(date_parser(document.attrib["Date"]))
@@ -55,6 +58,9 @@ def parser_0(document):
 
 
 def parser_1(document):
+    """
+    Parser for invoice collections with filenames constructed according to this format: Zestawienie_faktur_YYYY
+    """
     invoice_list = []
     metadata = dict()
     metadata["communication_date"] = date_to_str(datetime_parser(document.attrib["date"]))
@@ -78,11 +84,13 @@ def parser_1(document):
         invoice.header["contractor_address"] = quote(item.find("inv_bill_street").text)
         invoice.header["contractor_zip_code"] = quote(item.find("inv_bill_code").text)
         invoice_list.append(invoice)
+        tax_rate = float(invoice.header["vat_value"])/float(invoice.header["net_value"])
+        tax_rate = round(tax_rate, 2)
         invoice.body.append(
             {
                 # "tax_rate_symbol": entry.find("LineTax").find("TaxRate").attrib["Code"],  # Zastąpione rozwiązaniem wziętym z przykładu
-                "tax_rate_symbol": "\"23\"",
-                "tax_rate": 23.0,
+                "tax_rate_symbol": quote(str(int(tax_rate*100))),
+                "tax_rate": tax_rate * 100,
                 "net_value": invoice.header["net_value"],
                 "vat_value": invoice.header["vat_value"],
                 "gross_value": invoice.header["gross_value"]

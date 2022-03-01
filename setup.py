@@ -1,6 +1,6 @@
 from cx_Freeze import setup, Executable
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 # include_files = [
 #     ('my/path', 'target/path'),
